@@ -2,7 +2,7 @@ package utils
 
 import (
 	"fmt"
-	"os"
+	"github.com/Lutrome/PokemonCLI/utils/commands"
 )
 
 type cliCommand struct {
@@ -16,12 +16,22 @@ func RunCommand(cmd string) {
 		"help": {
 			"help",
 			"Shows this help menu.",
-			commandHelp,
+			commands.Help,
 		},
 		"exit": {
 			"exit",
 			"Exits the Pokedex.",
-			commandExit,
+			commands.Exit,
+		},
+		"map": {
+			"map",
+			"",
+			commands.Map,
+		},
+		"mapb": {
+			"map",
+			"",
+			commands.Mapb,
 		},
 	}
 
@@ -29,22 +39,11 @@ func RunCommand(cmd string) {
 	if exists {
 		err := validCommands[cmd].callback()
 		if err != nil {
-			fmt.Println("[ERROR!]", err)
+			fmt.Println("[ERROR]", err)
 			return
 		}
 	} else {
 		fmt.Println("Wrong input, or command not implemented yet!")
 		return
 	}
-}
-
-func commandHelp() error {
-	fmt.Println("Help menu is under construction.")
-	return nil
-}
-
-func commandExit() error {
-	fmt.Println("Bye!")
-	os.Exit(1)
-	return nil
 }
