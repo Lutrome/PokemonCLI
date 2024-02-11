@@ -3,7 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/Lutrome/PokemonCLI/utils"
+	"github.com/Lutrome/PokemonCLI/commands"
 	"os"
 )
 
@@ -13,6 +13,13 @@ func main() {
 	for {
 		fmt.Print("PokemonCLI v0.0.1 > ")
 		cmdParse.Scan()
-		utils.RunCommand(cmdParse.Text())
+		if cmdParse.Text() == "help" {
+			err := commands.Help()
+			if err != nil {
+				fmt.Println(err)
+			}
+			continue
+		}
+		commands.RunCommand(cmdParse.Text())
 	}
 }
